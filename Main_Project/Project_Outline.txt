@@ -1,0 +1,72 @@
+
+
+
+(Side Note: software for taking written equations to latex readings: mathpix) 
+
+
+
+                                                                                        ** Project Outline:**
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+- Goal of Project: 
+
+    Use AI (Chatbots & Agentic) to convent human level physics lecture notes in readable and organizable pdf-latex outputs that are reproducible 
+    process for the Ohio University Physics Departents and will be inside a shared Repo.  
+    
+    
+    
+
+- Outline: 
+
+Steps: 
+*) Convert Human level notes into readable form (blocks, sperators, or have AI try to read it) (to images blocks)
+*) Use Mathpix or Agents to convert Images into Raw latex files 
+*) Have Agentic AI clean the latex then have final readable latex-pdf output 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
