@@ -1,32 +1,31 @@
-# Stage 2 Review Log — Run 2
+# Stage 2 Review Log — Run 3
 
-Segmentation: 20 segments (page1→5, page2→3, page3→6, page4→6), independently re-cropped from
-the run-1 boundaries (25 segments: 6/5/7/7) to keep this a genuine second segmentation pass.
+Independent re-segmentation for Run 3 (crop boundaries chosen fresh from the rendered
+pages, not copied from the archived Run 1/Run 2 in `Run2_Archive/`).
 
-## Round 1 — 3 independent reviewer agents
-All 20 segments inspected for legibility, segmentation quality, content fidelity, and boundary
-overlap adequacy.
+## Round 1
+3 independent physics-PhD-level reviewer agents inspected all 22 segments
+(`page01_seg01–06`, `page02_seg01–04`, `page03_seg01–06`, `page04_seg01–06`) against the
+4 full-page renders. All 3 independently converged on the same two defects:
 
-- Reviewer 1: REVISE — flagged `page02_seg03.png` (missing bottom ~340px: attractive-case closing
-  line `= -sin(θ/2)`) and `page04_seg06.png` (missing bottom ~140px: "CANONICAL EQS OF MOTION"
-  label).
-- Reviewer 2: REVISE — independently found the same `page02_seg03.png` defect (three dropped
-  lines completing the attractive-case ψ derivation).
-- Reviewer 3: REVISE — independently found both the same `page02_seg03.png` and `page04_seg06.png`
-  defects.
+- `page01_seg06.png` (cropped y=1550–1950 of a 2200px page) dropped the page's final line,
+  "UP TO HERE, RESULTS ARE VALID FOR ANY CENTRAL POTENTIAL V(r)" — absent from every segment.
+- `page04_seg06.png` (cropped y=1660–2020 of a 2200px page) dropped the closing box border,
+  brace, and "CANONICAL EQS OF MOTION" caption beneath the boxed Hamilton equations — absent
+  from every segment (the equations themselves were captured; only the label/brace were lost).
 
-All three reviewers converged on the same two genuine defects (both a case of the crop bottom
-edge landing short of the true page content, not reaching the blank margin). No false positives
-this round. Fixed by re-cropping both segments to extend to the full page bottom (y=2200):
-- `page02_seg03.png`: 1700x500+0+1360 → 1700x840+0+1360
-- `page04_seg06.png`: 1700x450+0+1610 → 1700x590+0+1610
+Root cause: both segments' `y1` bound stopped short of the true page height (2200px) instead
+of running to the bottom margin, unlike pages 2–3 where the real content happened to end before
+the last segment's boundary.
 
-## Round 2 (targeted) — 3 fresh reviewer agents
-Re-checked only the two corrected segments plus their immediate neighbors
-(`page02_seg02.png`, `page04_seg05.png`) for the fix and for overlap sanity.
+**Fix:** extended `page01_seg06` and `page04_seg06` in `crop.py` to `y1=2200` (true page bottom)
+and re-rendered both segments.
 
-- Reviewer 2A: APPROVE
-- Reviewer 2B: APPROVE
-- Reviewer 2C: APPROVE
+## Round 2 (targeted)
+3 fresh reviewers re-checked the two corrected segments plus their neighbors (`page01_seg05`,
+`page04_seg05`) for: (a) the missing content now present and legible, (b) overlap with the
+preceding segment still adequate (~100px, 1-2 full lines shared), (c) no new truncation or
+over-crop introduced. All 3 independently **APPROVE**.
 
-**Outcome: all 20 segments approved after 2 rounds** (within the 3-round cap).
+## Outcome
+All 22 segments approved after 2 rounds (within the 3-round cap).
