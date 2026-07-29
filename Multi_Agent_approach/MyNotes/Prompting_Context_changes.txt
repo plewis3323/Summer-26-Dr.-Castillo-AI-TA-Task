@@ -1,0 +1,22 @@
+
+
+
+
+
+#These Are Edits That are needed to be added into the Multi-agent Notes Framework markdown product: 
+
+
+1. Textbooks are used for context (help you learn) and notation conventions when transcribing the notes.  
+
+2. Try to make the notes from final Latex-pdf outputs to be from the original notes as possible only as concise descriptions if they will help 
+   with descriptions of note pieces. 
+   
+3. Don't have A note Intro describing what the agents did just get right into the notes 
+
+4. Also Make the markdown file still with precision (quality) but it to where the job can go relatively fast.  
+
+5. Also if there are directories from old or previous jobs archive and then do the whole process. 
+
+6. Setup the markdown file where it can take multiple inputs at a time and as many subagents to run the process chain and to make it good with quality and fast.  
+
+7. Get rid of mathpix pieces in the markdown file 
