@@ -1,0 +1,116 @@
+\documentclass[11pt]{article}
+\usepackage{goldsteinnotes}
+\usepackage{cancel}
+\usepackage{fancybox}
+
+\begin{document}
+
+\section*{\underline{Chapter 8}\quad \underline{Hamiltonian and Hamilton's Eqns of Motion}}
+
+\[
+L = T - V = L(q_{1}\ldots q_{n},\,\dot q_{1}\ldots \dot q_{n},\, t)
+\]
+
+\begin{equation}
+0 = \ddt{}\left(\evalat{\pd{L}{\dot q_{i}}}{q_{j},\,\dot q_{j}}\right)
+  - \evalat{\pd{L}{q_{i}}}{q_{j},\,\dot q_{j}},
+\qquad
+p_{i} = \evalat{\pd{L}{\dot q_{i}}}{q_{j},\,\dot q_{j}} .
+\label{eq:EL}
+\end{equation}
+
+\begin{center}
+\fbox{\begin{minipage}{0.62\textwidth}
+\centering
+\textbf{MIDTERM REMARK}\\[3pt]
+In polar coordinates\\[2pt]
+$\displaystyle \pd{L}{\dot\theta} = p_{\theta} = l_{z}$\\[4pt]
+\retracted{$L = L(r,\dot r, p_{\theta})$}\\[2pt]
+\retracted{$\Downarrow$\quad Lagrange Eqn}
+\end{minipage}}
+\end{center}
+
+\medskip\noindent\textbf{Legendre transformation}\par
+\[
+q_{1}\ldots q_{n},\ \dot q_{1}\ldots \dot q_{n}
+\;\longrightarrow\;
+q_{1}\ldots q_{n},\ p_{1}\ldots p_{n}
+\]
+\[
+f(x,y) \;\Longrightarrow\;
+\d f = \pd{f}{x}\,\d x + \pd{f}{y}\,\d y .
+\]
+
+\medskip\noindent\textbf{In thermodynamics}\par
+
+\[
+\text{1st Law}\qquad
+\d U = \,\dbar Q + \,\dbar W = \overset{\text{\scriptsize fluid at constant $N$}}{T\,\d S - p\,\d V},
+\qquad
+U = U(S,V)\ \ \text{internal energy}
+\]
+
+We want $T,V$ as variables.
+\[
+F = A = U - TS \qquad \text{Helmholtz free energy}
+\]
+\[
+\d A = \d U - \d(TS)
+ = \cancel{T\,\d S} - p\,\d V - \cancel{T\,\d S} - S\,\d T
+ = -S\,\d T - p\,\d V
+\;\Longrightarrow\; A = A(T,V).
+\]
+
+\medskip\noindent\textbf{In general}\par
+
+\[
+f(x,y) = u\,\d x + v\,\d y,
+\qquad
+u = \pd{f}{x},\qquad v = \pd{f}{y},
+\qquad (x,y) \longrightarrow (u,y)
+\]
+\[
+g = f - ux \;\Longrightarrow\;
+\d g = \d f - \d(ux)
+ = \cancel{u\,\d x} + v\,\d y - \cancel{u\,\d x} - x\,\d u
+ = -x\,\d u + v\,\d y,
+\qquad g = g(u,y).
+\]
+
+\medskip\noindent Let us look at $L(q_{1}\ldots q_{n},\,\dot q_{1}\ldots \dot q_{n})$, with
+\[
+\ovalbox{$\displaystyle p_{i} = \evalat{\pd{L}{\dot q_{i}}}{q_{j},\,\dot q_{j}}$}
+\]
+\[
+H = -\left(L - \sum_{i} p_{i}\dot q_{i}\right)
+\]
+\begin{align*}
+\d H &= -\d L + \sum_{i} \d\bigl(p_{i}\dot q_{i}\bigr)\\
+     &= -\sum_{i}\left(\pd{L}{q_{i}}\,\d q_{i}
+        + \cancel{\pd{L}{\dot q_{i}}\,\d\dot q_{i}}\right)
+        \;-\;\pd{L}{t}\,\d t\;
+        +\;\sum_{i}\left(\cancel{p_{i}\,\d\dot q_{i}} + \dot q_{i}\,\d p_{i}\right)
+\end{align*}
+so that
+\[
+\d H = -\pd{L}{t}\,\d t + \sum_{i}\left(\dot q_{i}\,\d p_{i}
+  - \pd{L}{q_{i}}\,\d q_{i}\right)
+\;\Longrightarrow\;
+H = H(p_{1}\ldots p_{n},\, q_{1}\ldots q_{n},\, t).
+\]
+
+\begin{center}
+\fbox{\begin{minipage}{0.9\textwidth}
+\[
+\pd{H}{p_{i}} = \dot q_{i},
+\qquad
+\pd{H}{q_{i}} = -\pd{L}{q_{i}}
+  \overset{\text{\scriptsize Eq.~\eqref{eq:EL}}}{=} -\dot p_{i},
+\qquad
+\pd{H}{t} = -\pd{L}{t} .
+\]
+\end{minipage}}\\[3pt]
+\textsc{canonical eqs.\ of motion}
+\end{center}
+
+\end{document}

@@ -1,0 +1,555 @@
+\documentclass[11pt]{article}
+\usepackage{goldsteinnotes}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,decorations.pathmorphing}
+
+% --- document-specific symbol choices ---------------------------------------
+% Matrix objects are set in standard bold, never double-struck type.
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bV}{\mathbf{V}}
+\newcommand{\bA}{\mathbf{A}}
+\newcommand{\bone}{\mathbf{1}}
+\newcommand{\bPi}{\bm{\Pi}}
+\DeclareMathOperator{\Det}{Det}
+
+\title{Small Oscillations}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2.5em}
+
+\section{One Degree of Freedom}
+
+Consider a single generalized coordinate $q$ obeying $\ddot q = f(q)$. An equilibrium configuration $q=q_0$ is defined by
+\begin{equation}
+0 = f(q_0).
+\end{equation}
+To study the motion for a small displacement away from $q_0$, write
+\begin{equation}
+q = q_0+\eta, \qquad \eta \ \text{``small''},
+\end{equation}
+so that $\ddot{(q_0+\eta)} = \ddot\eta$, while Taylor expanding the force about the equilibrium point gives
+\begin{equation}
+f(q_0+\eta) = \underbrace{f(q_0)}_{=0} + \eta f'(q_0) + \cdots.
+\end{equation}
+Hence, to leading order in the small deviation,
+\begin{equation}
+\ddot\eta \approx f'(q_0)\,\eta \qquad \text{(the equation of motion is linear in small deviations).}
+\end{equation}
+Two behaviors are possible depending on the sign of $f'(q_0)$:
+\begin{align}
+\text{Oscillation} &\iff f'(q_0) < 0, & \omega &= \sqrt{-f'(q_0)}, & \eta &= \eta_0\cos(\omega t+\varphi_0),\\
+\text{Instability} &\iff f'(q_0) > 0, & \lambda &= \sqrt{f'(q_0)}, & \eta &= Ae^{\lambda t}+Be^{-\lambda t}.
+\end{align}
+
+\section{Several Degrees of Freedom}
+
+\subsection{Equilibrium and the Potential Expansion}
+
+For several degrees of freedom, restrict to the case $V=V(q_1,\dots,q_n,t)$, so that
+\begin{equation}
+L = T-V.
+\end{equation}
+An equilibrium configuration $(q_1,\dots,q_n)=(q_{01},\dots,q_{0n})$ is one at which every generalized force vanishes,
+\begin{equation}
+Q_j = -\left.\frac{\partial V}{\partial q_j}\right|_{\vec q = \vec q_0} = 0 .
+\end{equation}
+Figure~\ref{fig:potential} illustrates the idea: an equilibrium point is a local minimum of $V(q_j)$, and near that minimum the potential is well approximated by a quadratic form in the displacement $\eta_j$.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.95]
+\draw[->] (-2.6,0) -- (2.9,0) node[right] {$q_j$};
+\draw[thick] plot[smooth] coordinates {(-2.3,2.3) (-1.5,1.05) (-0.7,0.2) (0,0) (0.55,0.5) (0.95,0.68) (1.35,0.55) (1.75,1.0) (2.3,2.1)};
+\draw[dashed] (0,0) -- (0,-0.55);
+\node[below] at (0,-0.55) {$q_{0j}$};
+\draw[->] (1.55,1.55) -- (0.12,0.12);
+\node[align=center] at (1.9,1.9) {\footnotesize equilibrium\\[-2pt]\footnotesize is here};
+\node[above left] at (-2.6,2.4) {$V$};
+\node at (0,3.0) {(a)};
+\end{tikzpicture}
+\hspace{1.2cm}
+\begin{tikzpicture}[scale=0.95]
+\draw[->] (-2.6,0) -- (2.9,0) node[right] {$q_j$};
+\draw[thick] plot[smooth] coordinates {(-2.3,2.3) (-1.5,1.05) (-0.7,0.2) (0,0) (0.7,0.2) (1.5,1.05) (2.3,2.3)};
+\draw[blue,thick] plot[smooth,domain=-1.0:1.0,samples=25] (\x,{0.9*\x*\x});
+\draw[blue,->] (-0.35,0) -- (0.35,0);
+\node[blue,below] at (0,0.05) {\footnotesize $\eta_j$};
+\draw[dashed] (0,0) -- (0,-0.55);
+\node[below] at (0,-0.55) {$q_{0j}$};
+\node[blue,align=center] at (1.5,2.2) {\footnotesize approximate\\[-2pt]\footnotesize by quadratic};
+\draw[blue,->] (1.15,1.9) -- (0.2,0.35);
+\node[above left] at (-2.6,2.4) {$V$};
+\node at (0,3.0) {(b)};
+\end{tikzpicture}
+\caption{(a) A generic potential $V(q_j)$ with an equilibrium (local minimum) at $q_j=q_{0j}$. (b) Near the equilibrium point, $V(q_j)$ is approximated by a quadratic (parabolic) form in the small displacement $\eta_j$.}
+\label{fig:potential}
+\end{figure}
+
+Writing $q_j = q_{0j}+\eta_j$ and Taylor expanding $V$ to second order in $\eta$,
+\begin{equation}
+V(q_1,\dots,q_n) = \underbrace{V(q_{01},\dots,q_{0n})}_{\text{constant} \,\Rightarrow\, \text{no worries}} + \sum_{j=1}^{n}\underbrace{\left.\frac{\partial V}{\partial q_j}\right|_{\vec q_0}}_{-Q_j = 0}\eta_j + \frac12\sum_{i,j=1}^{n}\underbrace{\left.\frac{\partial^2 V}{\partial q_i\partial q_j}\right|_{\vec q_0}}_{\equiv\, V_{ij}}\eta_i\eta_j + \cdots,
+\label{eq:V-expansion}
+\end{equation}
+where $V_{ij}$ is an $n\times n$ matrix with $V_{ij}=V_{ji}$.
+
+Analogously, the kinetic energy is quadratic in the generalized velocities to leading order,
+\begin{equation}
+T = \frac12\sum_{i,j=1}^{n} \left.\frac{\partial^2 T}{\partial\dot\eta_i\,\partial\dot\eta_j}\right|_{\substack{\eta=0\\\dot\eta=0}} \dot\eta_i\dot\eta_j, \qquad T_{ij}\equiv \left.\frac{\partial^2 T}{\partial \dot\eta_i \partial \dot\eta_j}\right|_{\substack{\eta=0\\\dot\eta=0}}, \qquad T_{ij}=T_{ji}.
+\label{eq:T-def}
+\end{equation}
+Explicitly, for a system of $N$ particles,
+\begin{equation}
+T = \sum_{p=1}^{N}\frac{m_p}{2}\left(\dot{\vec r}_p\right)^2, \qquad \dot{\vec r}_p = \sum_{j=1}^{n}\frac{\partial \vec r_p}{\partial q_j}\dot q_j + \frac{\partial \vec r_p}{\partial t}, \qquad \text{assuming } \frac{\partial\vec r_p}{\partial t}=0.
+\label{eq:T-particles}
+\end{equation}
+
+\subsection{Lagrangian and Equations of Motion}
+
+Combining Eqs.~\eqref{eq:V-expansion}--\eqref{eq:T-def}, the Lagrangian for small oscillations about equilibrium is
+\begin{equation}
+\boxed{L = \frac12\sum_{i,j=1}^{n}\left(T_{ij}\,\dot\eta_i\dot\eta_j - V_{ij}\,\eta_i\eta_j\right).}
+\label{eq:L-normal}
+\end{equation}
+As an illustration of the derivatives involved, for two degrees of freedom
+\begin{align*}
+\frac{\partial}{\partial\eta_2}\left(\frac12\left[V_{11}\eta_1\eta_1+V_{12}\eta_1\eta_2+V_{21}\eta_2\eta_1+V_{22}\eta_2\eta_2\right]\right)
+&=\frac12\left[(V_{12}+V_{21})\eta_1+2V_{22}\eta_2\right]\\
+&\overset{V_{12}=V_{21}}{=}V_{21}\eta_1+V_{22}\eta_2,
+\end{align*}
+where the $\tfrac12$ prefactor cancels with the factor of $2$ produced by the derivative. In general,
+\begin{equation}
+\frac{\partial L}{\partial\eta_i} = -\sum_{j=1}^n V_{ij}\eta_j, \qquad p_i = \frac{\partial L}{\partial\dot\eta_i} = \sum_{j=1}^n T_{ij}\dot\eta_j.
+\end{equation}
+For a single degree of freedom this reproduces the familiar simple harmonic oscillator: with $T=\tfrac{m}{2}\dot\eta^2$ and $V=\tfrac{k}{2}\eta^2$,
+\begin{equation}
+L = \frac{m}{2}\dot\eta^2-\frac{k}{2}\eta^2, \qquad \frac{\partial L}{\partial\eta}=-k\eta, \qquad \frac{\partial L}{\partial\dot\eta}=m\dot\eta,
+\end{equation}
+\begin{equation}
+0 = \frac{\partial L}{\partial\eta}-\frac{d}{dt}\left(\frac{\partial L}{\partial\dot\eta}\right) = -k\eta-m\ddot\eta \ \Longrightarrow\ m\ddot\eta=-k\eta.
+\end{equation}
+The Lagrange equations following from Eq.~\eqref{eq:L-normal} are $0 = \partial L/\partial\eta_i - \dot p_i$, i.e.,
+\begin{equation}
+\boxed{0 = \sum_{j=1}^n V_{ij}\eta_j + \sum_{j=1}^n T_{ij}\ddot\eta_j, \qquad i=1,\dots,n.}
+\label{eq:EOM}
+\end{equation}
+
+\subsection{Normal-Mode Ansatz and the Secular Equation}
+
+Propose a common-frequency oscillatory solution,
+\begin{equation}
+\eta_j = \eta_{j0}\cos(\omega t+\delta_j) \ \Longrightarrow\ \ddot\eta_j = -\omega^2\eta_j, \qquad j=1,\dots,n.
+\end{equation}
+Substituting into Eq.~\eqref{eq:EOM},
+\begin{equation}
+0 = \sum_{j=1}^{n}\left(V_{ij}\eta_j - \omega^2 T_{ij}\eta_j\right) = \sum_{j=1}^n\left(V_{ij}-\omega^2 T_{ij}\right)\eta_{j0}\cos(\omega t+\delta_j), \qquad i=1,\dots,n.
+\end{equation}
+Since $\cos(\omega t+\delta_j)\neq0$ for most times, this can only hold if
+\begin{equation}
+0 = \sum_{j=1}^n \bigl(\underbrace{V_{ij}-\omega^2 T_{ij}}_{\text{eigenvalue}}\bigr)\underbrace{\eta_{j0}}_{\text{eigenvector}}, \qquad i=1,\dots,n,
+\label{eq:eigenproblem}
+\end{equation}
+with $\omega$ the normal-mode frequency and $\eta_{j0}$ the normal mode. For the $\eta_{j0}$ to be nontrivial, we need
+\begin{equation}
+\boxed{\Det\left[V_{ij}-\omega^2 T_{ij}\right] = 0.}
+\label{eq:secular}
+\end{equation}
+
+\begin{aside}
+More details on the kinetic energy term. Writing out the sum in Eq.~\eqref{eq:T-particles},
+\begin{equation}
+T = \sum_{p=1}^N \frac{m_p}{2}\left(\dot{\vec r}_p\right)^2 = \sum_{p=1}^N\frac{m_p}{2}\left(\sum_{i=1}^n\frac{\partial\vec r_p}{\partial q_i}\dot q_i+\frac{\partial\vec r_p}{\partial t}\right)\cdot\left(\sum_{j=1}^n\frac{\partial \vec r_p}{\partial q_j}\dot q_j+\frac{\partial\vec r_p}{\partial t}\right),
+\end{equation}
+with $\vec r_p = \vec r_p(q_1,\dots,q_n,t) \Rightarrow \dot{\vec r}_p = \sum_{j=1}^n \dfrac{\partial\vec r_p}{\partial q_j}\dot q_j + \dfrac{\partial \vec r_p}{\partial t}$. Collecting terms by power of the generalized velocities,
+\begin{equation}
+T = T_2+T_1+T_0,
+\end{equation}
+\begin{equation}
+T_2 = \frac12\sum_{i,j=1}^n m_{ij}\,\dot q_i\dot q_j, \qquad m_{ij}\equiv\sum_{p=1}^N m_p\,\frac{\partial\vec r_p}{\partial q_i}\cdot\frac{\partial\vec r_p}{\partial q_j},
+\end{equation}
+\begin{equation}
+T_1 = \sum_{j=1}^n \pi_j\dot q_j, \qquad \pi_j\equiv\sum_{p=1}^N m_p\,\frac{\partial\vec r_p}{\partial q_j}\cdot\frac{\partial\vec r_p}{\partial t}, \qquad T_0 = \sum_{p=1}^N\frac{m_p}{2}\left(\frac{\partial\vec r_p}{\partial t}\right)^2
+\end{equation}
+($m_{ij}$ is a function of $(q_1,\dots,q_n)$ because the derivatives $\partial\vec r_p/\partial q_k$ depend on $(q_1,\dots,q_n)$). Assuming $\partial\vec r_p/\partial t = \vec 0$ and expanding for $q_j = q_{0j}+\eta_j$ with $\eta_j$ small gives
+\begin{equation}
+T = T_2 = \frac12\sum_{i,j=1}^n\left(\left.m_{ij}\right|_{\vec q_0} + \sum_k \left.\frac{\partial m_{ij}}{\partial q_k}\right|_{\vec q_0}\eta_k+\cdots\right)(\dot q_{0i}+\dot\eta_i)(\dot q_{0j}+\dot\eta_j).
+\end{equation}
+But $(q_{0i}+\eta_i)\dot{} = \dot\eta_i$, and $\eta_k\dot\eta_i\dot\eta_j\propto\eta^3$ is of higher order in the small deviations; therefore, up to quadratic order in $\eta,\dot\eta$,
+\begin{equation}
+\boxed{T = \frac12\sum_{i,j=1}^n T_{ij}\dot\eta_i\dot\eta_j, \qquad \text{with}\qquad T_{ij} = \left.m_{ij}\right|_{\vec q=\vec q_0}.}
+\end{equation}
+\end{aside}
+
+\subsection{General Solution and Normal Coordinates}
+
+Equation~\eqref{eq:secular} has, in general, $n$ roots $\omega_k^2$ ($k=1,\dots,n$, the number of degrees of freedom),
+\begin{equation}
+\Det\left[V_{ij}-\omega_k^2 T_{ij}\right] = 0, \qquad \left[\bV-\omega_k^2\bT\right]\vec a_k = \vec 0, \qquad k=1,\dots,n.
+\end{equation}
+The general solution is a linear combination of the normal modes,
+\begin{equation}
+\eta_i = \sum_k C_k a_{ik}\cos(\omega_k t+\delta_k), \qquad \vec\eta = \sum_k C_k \vec a_k\cos(\omega_k t+\delta_k).
+\end{equation}
+Defining the matrix of eigenvectors $(\bA)_{ij}\equiv a_{ij}$, $\bA \equiv (\vec a_1\ \vec a_2\ \cdots\ \vec a_n)$, one has the property
+\begin{equation}
+\bone = \bA^{T}\bT\bA \ \Longrightarrow\ \bA^{-1}=\bA^{T}\bT, \qquad \bA^{T}\bV\bA = \begin{pmatrix}\omega_1^2 & 0 & \cdots\\ 0 & \ddots & 0\\ \vdots & 0 & \omega_n^2\end{pmatrix}.
+\end{equation}
+
+\paragraph{Normal modes example.} Figure~\ref{fig:threemass} shows three equal masses connected in a line by identical springs. The three normal modes (Fig.~\ref{fig:threemodes}) are $\vec a_1 = (1,0,-1)^T$ at frequency $\omega_1$, $\vec a_2 = (-1,2,-1)^T$ at frequency $\omega_2$, and $\vec a_3=(1,1,1)^T$ at $\omega_3=0$. The general motion is
+\begin{equation}
+\begin{pmatrix}\eta_1\\\eta_2\\\eta_3\end{pmatrix} = C_1\vec a_1\cos(\omega_1 t+\delta_1)+C_2\vec a_2\cos(\omega_2 t+\delta_2)+C_3\vec a_3\cos(\omega_3 t+\delta_3).
+\end{equation}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=1.0]
+\foreach \x/\lab in {0/1,2.4/2,4.8/3}{
+  \draw[fill=white] (\x,0) circle (0.28);
+  \node at (\x,-0.6) {\lab};
+}
+\draw[decorate,decoration={coil,aspect=0.4,segment length=3.5pt,amplitude=3pt}] (0.28,0) -- (2.12,0);
+\draw[decorate,decoration={coil,aspect=0.4,segment length=3.5pt,amplitude=3pt}] (2.68,0) -- (4.52,0);
+\end{tikzpicture}
+\caption{Three equal masses coupled in a line by identical springs.}
+\label{fig:threemass}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=0.62]
+\begin{scope}
+\foreach \x/\lab in {0/1,2.0/2,4.0/3}{ \draw (\x,0) circle (0.22); \node at (\x,-0.85) {\lab}; }
+\draw[->] (0.3,0) -- (0.9,0);
+\draw (1.78,0) -- (1.78,0);
+\draw[->] (4.0,0) -- (3.4,0);
+\node at (2.0,0.7) {$\omega_1$};
+\node at (2.0,-2.3) {$\vec a_1=(1,0,-1)^T$};
+\end{scope}
+\begin{scope}[xshift=6.0cm]
+\foreach \x/\lab in {0/1,2.0/2,4.0/3}{ \draw (\x,0) circle (0.22); \node at (\x,-0.85) {\lab}; }
+\draw[->] (0,0) -- (-0.6,0);
+\draw[->] (2.0,0) -- (2.6,0);
+\draw[->] (4.0,0) -- (3.4,0);
+\node at (2.0,0.7) {$\omega_2$};
+\node at (2.0,-2.3) {$\vec a_2=(-1,2,-1)^T$};
+\end{scope}
+\begin{scope}[xshift=12.0cm]
+\foreach \x/\lab in {0/1,2.0/2,4.0/3}{ \draw (\x,0) circle (0.22); \node at (\x,-0.85) {\lab}; }
+\draw[->] (0,0) -- (0.6,0);
+\draw[->] (2.0,0) -- (2.6,0);
+\draw[->] (4.0,0) -- (4.6,0);
+\node at (2.0,0.7) {$\omega_3=0$};
+\node at (2.0,-2.3) {$\vec a_3=(1,1,1)^T$};
+\end{scope}
+\end{tikzpicture}
+\caption{The three normal modes of the system in Fig.~\ref{fig:threemass}: $\vec a_1$ at $\omega_1$, with the outer masses displaced oppositely and the middle mass fixed; $\vec a_2$ at $\omega_2$, with the middle mass displaced oppositely to, and at twice the amplitude of, the outer masses; and $\vec a_3$ at $\omega_3=0$, a uniform translation of the chain.}
+\label{fig:threemodes}
+\end{figure}
+
+Introducing normal coordinates $\vec\zeta$ through $\vec\eta = \bA\vec\zeta$, i.e. $\eta_i = \sum_k \zeta_k a_{ik}$ with $\zeta_k = C_k\cos(\omega_k t+\delta_k)$, so that $\vec\zeta = \bA^{-1}\vec\eta = \bA^{T}\bT\vec\eta$, the Lagrangian becomes
+\begin{equation}
+L = \frac12\sum_{i,j}\left(\dot\eta_i T_{ij}\dot\eta_j - \eta_i V_{ij}\eta_j\right) = \frac12\left[\dot{\vec\eta}^{\,T}\bT\dot{\vec\eta}-\vec\eta^{\,T}\bV\vec\eta\right] = \frac12\left[\dot{\vec\zeta}^{\,T}\bA^{T}\bT\bA\dot{\vec\zeta}-\vec\zeta^{\,T}\bA^{T}\bV\bA\vec\zeta\right],
+\end{equation}
+\begin{equation}
+L = \frac12\left[\dot{\vec\zeta}^{\,T}\dot{\vec\zeta}-\vec\zeta^{\,T}\begin{pmatrix}\omega_1^2 & &0\\ &\ddots& \\0& &\omega_n^2\end{pmatrix}\vec\zeta\right] \ \Longrightarrow\ \boxed{L = \frac12\sum_{k=1}^n\left(\dot\zeta_k^2-\omega_k^2\zeta_k^2\right).}
+\end{equation}
+In the normal coordinates the system decouples into $n$ independent harmonic oscillators.
+
+\section{Example: Oscillations of a Double Pendulum}
+
+\subsection{Setup and Lagrangian}
+
+Consider two point masses $m$ connected in series by rigid, massless rods of length $\ell$, as in Fig.~\ref{fig:doublependulum}, with angles $\varphi_1,\varphi_2$ measured from the vertical.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=1.35]
+\draw[thick] (-1.1,0) -- (1.3,0);
+\foreach \x in {-1.05,-0.85,...,1.25}{\draw (\x,0) -- ++(-0.12,-0.14);}
+\filldraw (0,0) circle (0.02);
+\draw[blue,->] (0,0) -- (1.9,0) node[right] {$+x$};
+\draw[blue,->] (0,0) -- (0,-1.6) node[below] {$-z$};
+\coordinate (P0) at (0,0);
+\coordinate (P1) at ({1.4*sin(25)},{-1.4*cos(25)});
+\coordinate (P2) at ($(P1)+({1.4*sin(48)},{-1.4*cos(48)})$);
+\draw[thick] (P0) -- (P1);
+\draw[thick] (P1) -- (P2);
+\draw[dashed] (P0) -- ++(0,-0.9);
+\draw[dashed] (P1) -- ++(0,-0.8);
+\draw (0,-0.55) arc[start angle=-90,end angle=-65,radius=0.55];
+\node at (0.28,-0.42) {\footnotesize $\varphi_1$};
+\draw ($(P1)+(0,-0.5)$) arc[start angle=-90,end angle=-42,radius=0.5];
+\node at ($(P1)+(0.42,-0.32)$) {\footnotesize $\varphi_2$};
+\draw[->] (-0.55,-0.15) -- (-0.15,-0.55);
+\node at (-0.75,-0.25) {\footnotesize $\hat r_1$};
+\node at (0.55,-0.15) {\footnotesize $\ell$};
+\filldraw (P1) circle (0.045);
+\node[right] at (P1) {\footnotesize $m$};
+\node at ($(P1)!0.5!(P2)+(0.22,0.05)$) {\footnotesize $\ell$};
+\filldraw (P2) circle (0.045);
+\node[right] at (P2) {\footnotesize $m$};
+\end{tikzpicture}
+\caption{Double pendulum: two point masses $m$ connected by rigid, massless rods of length $\ell$, with angles $\varphi_1,\varphi_2$ measured from the vertical ($-\hat z$) direction.}
+\label{fig:doublependulum}
+\end{figure}
+
+The transformation equations are
+\begin{equation}
+\vec r_1 = \ell(\sin\varphi_1\,\hat x-\cos\varphi_1\,\hat z) = \ell\,\hat r_1, \qquad \vec r_2 = \ell(\sin\varphi_1\,\hat x-\cos\varphi_1\,\hat z)+\ell(\sin\varphi_2\,\hat x-\cos\varphi_2\,\hat z) = \ell(\hat r_1+\hat r_{21}),
+\end{equation}
+\begin{equation}
+\hat r_1 = \sin\varphi_1\,\hat x-\cos\varphi_1\,\hat z, \qquad \hat r_{21} = \sin\varphi_2\,\hat x-\cos\varphi_2\,\hat z.
+\end{equation}
+The velocities follow from $\dot{\hat r}_1 = \dot\varphi_1\,\partial\hat r_1/\partial\varphi_1$ and $\dot{\hat r}_{21}=\dot\varphi_2\,\partial \hat r_{21}/\partial\varphi_2$, with
+\begin{equation}
+\frac{\partial\hat r_1}{\partial\varphi_1} = \hat e_{\varphi_1} = \cos\varphi_1\,\hat x+\sin\varphi_1\,\hat z, \qquad \frac{\partial\hat r_{21}}{\partial\varphi_2} = \hat e_{\varphi_2} = \cos\varphi_2\,\hat x+\sin\varphi_2\,\hat z,
+\end{equation}
+so that
+\begin{align}
+\dot{\vec r}_1 &= \ell\dot{\hat r}_1 = \ell\dot\varphi_1\left(\cos\varphi_1\,\hat x+\sin\varphi_1\,\hat z\right),\\
+\dot{\vec r}_2 &= \ell(\dot{\hat r}_1+\dot{\hat r}_{21}) = \ell\dot\varphi_1\left(\cos\varphi_1\,\hat x+\sin\varphi_1\,\hat z\right)+\ell\dot\varphi_2\left(\cos\varphi_2\,\hat x+\sin\varphi_2\,\hat z\right).
+\end{align}
+The kinetic and potential energies are then
+\begin{equation}
+T = \frac{m}{2}\left[(\dot{\vec r}_1)^2+(\dot{\vec r}_2)^2\right] = \frac{m}{2}\left[\ell^2\dot\varphi_1^2+\ell^2\left(\dot\varphi_1^2+\dot\varphi_2^2+2\dot\varphi_1\dot\varphi_2\,\hat e_{\varphi_1}\cdot\hat e_{\varphi_2}\right)\right],
+\end{equation}
+where
+\begin{equation}
+\hat e_{\varphi_1}\cdot\hat e_{\varphi_2}=\cos\varphi_1\cos\varphi_2+\sin\varphi_1\sin\varphi_2=\cos(\varphi_2-\varphi_1),
+\end{equation}
+\begin{equation}
+T = \frac{m\ell^2}{2}\left[2\dot\varphi_1^2+\dot\varphi_2^2+2\dot\varphi_1\dot\varphi_2\cos(\varphi_2-\varphi_1)\right], \qquad V = mgz_1+mgz_2 = -mg\ell\left(2\cos\varphi_1+\cos\varphi_2\right),
+\end{equation}
+\begin{equation}
+L = T-V = \frac{m\ell^2}{2}\left[2\dot\varphi_1^2+\dot\varphi_2^2+2\dot\varphi_1\dot\varphi_2\cos(\varphi_2-\varphi_1)\right]+mg\ell\left(2\cos\varphi_1+\cos\varphi_2\right).
+\label{eq:dp-lagrangian}
+\end{equation}
+
+\subsection{Small-Oscillation Expansion}
+
+The configuration $\varphi_1=\varphi_2=0$ is known to be a stable equilibrium, but let us verify it directly:
+\begin{equation}
+\frac{\partial V}{\partial\varphi_1} = mg\ell\sin\varphi_1 = 0 \ \text{ at } \varphi_1=0\ \checkmark, \qquad \frac{\partial V}{\partial\varphi_2} = mg\ell\sin\varphi_2 = 0 \ \text{ at }\varphi_2=0\ \checkmark,
+\end{equation}
+and $V$ is an absolute minimum at $\varphi_1=\varphi_2=0$, so the equilibrium is stable. We therefore expand $T$ and $V$ to quadratic order in $\eta_i \equiv \varphi_i-\varphi_i^0 = \varphi_i$ (since $\varphi_i^0=0$):
+\begin{equation}
+\dot\varphi_1\dot\varphi_2\cos(\varphi_2-\varphi_1) = \dot\eta_1\dot\eta_2\cos(\eta_2-\eta_1) \approx \dot\eta_1\dot\eta_2\left[1-\frac{(\eta_2-\eta_1)^2}{2}+\cdots\right] \approx \dot\eta_1\dot\eta_2 + O(\dot\eta\dot\eta\,\eta^2) \qquad (\eta_i\ \text{small}),
+\end{equation}
+\begin{equation}
+\cos\varphi_i = \cos\eta_i = 1-\frac{\eta_i^2}{2}+\frac{\eta_i^4}{24}-\cdots \approx 1-\frac{\eta_i^2}{2}.
+\end{equation}
+Thus, to quadratic order in $\eta$ and $\dot\eta$,
+\begin{equation}
+V \approx -mg\ell\left[3-\frac{2\eta_1^2}{2}-\frac{\eta_2^2}{2}\right] = -mg\ell\left[3-\eta_1^2-\tfrac12\eta_2^2\right] \ \Longrightarrow\ \boxed{\bV = mg\ell\begin{pmatrix}2&0\\0&1\end{pmatrix},}
+\label{eq:dp-Vmatrix}
+\end{equation}
+\begin{equation}
+T \approx \frac{m\ell^2}{2}\left[2\dot\eta_1^2+\dot\eta_2^2+2\dot\eta_1\dot\eta_2\right] \ \Longrightarrow\ \boxed{\bPi = m\ell^2\begin{pmatrix}2&1\\1&1\end{pmatrix}.}
+\label{eq:dp-Tmatrix}
+\end{equation}
+As a check, $(\eta_1\ \eta_2)\bV(\eta_1\ \eta_2)^T/(mg\ell) = 2\eta_1^2+\eta_2^2$ and $(\dot\eta_1\ \dot\eta_2)\bPi(\dot\eta_1\ \dot\eta_2)^T/(m\ell^2)=2\dot\eta_1^2+2\dot\eta_1\dot\eta_2+\dot\eta_2^2$, both consistent with Eqs.~\eqref{eq:dp-Vmatrix}--\eqref{eq:dp-Tmatrix}.
+
+\subsection{Normal Modes}
+
+To simplify the algebra, write $mg\ell = m\ell^2(g/\ell)$ and $\omega_0^2\equiv g/\ell$. Then
+\begin{equation}
+0 = \Det\left[\bV-\omega^2\bPi\right] = \Det\left(m\ell^2\begin{pmatrix}2\omega_0^2-2\omega^2 & -\omega^2\\ -\omega^2 & \omega_0^2-\omega^2\end{pmatrix}\right)
+\end{equation}
+\begin{equation}
+\iff 0 = (2\omega_0^2-2\omega^2)(\omega_0^2-\omega^2)-\omega^4 = 2\omega^4-4\omega^2\omega_0^2+2\omega_0^4-\omega^4 = \omega^4-4\omega_0^2\omega^2+2\omega_0^4,
+\end{equation}
+\begin{equation}
+\iff 0 = \left(\omega^2-2\omega_0^2\right)^2 - \underbrace{\left(4\omega_0^4-2\omega_0^4\right)}_{2\omega_0^4} \quad(\text{completing the square})
+\end{equation}
+\begin{equation}
+\iff \omega^2 = 2\omega_0^2\pm\sqrt2\,\omega_0^2 = (2\pm\sqrt2)\,\omega_0^2 \iff
+\boxed{\omega = \begin{cases}\omega_+=\sqrt{2+\sqrt2}\,\omega_0\\ \omega_-=\sqrt{2-\sqrt2}\,\omega_0\end{cases}} \qquad \text{(eigenfrequencies).}
+\label{eq:dp-eigenfreq}
+\end{equation}
+The eigenvector equation is
+\begin{equation}
+\begin{pmatrix}0\\0\end{pmatrix} = \begin{pmatrix}2\omega_0^2-2\omega^2 & -\omega^2\\ -\omega^2 & \omega_0^2-\omega^2\end{pmatrix}\begin{pmatrix}a_1\\a_2\end{pmatrix}
+\end{equation}
+\begin{align}
+0&=2(\omega_0^2-\omega^2)a_1-\omega^2 a_2 \iff a_2 = 2\left(\frac{\omega_0^2}{\omega^2}-1\right)a_1 \iff \frac{a_2}{a_1}=2\left(\frac{\omega_0^2}{\omega^2}-1\right),\\
+0&=-\omega^2a_1+(\omega_0^2-\omega^2)a_2 \iff a_1 = \left(\frac{\omega_0^2}{\omega^2}-1\right)a_2 \iff \frac{a_2}{a_1}=\frac{1}{\left(\frac{\omega_0^2}{\omega^2}-1\right)}.
+\end{align}
+\noindent\textit{Side note:} the two equations for $a_2/a_1$ are equivalent,
+\begin{align}
+2\left(\frac{\omega_0^2}{\omega^2}-1\right) &= \frac{1}{\left(\frac{\omega_0^2}{\omega^2}-1\right)} \iff 1 = 2\left(\frac{\omega_0^2}{\omega^2}-1\right)\left(\frac{\omega_0^2}{\omega^2}-1\right)\\
+\iff \omega^4 &= 2(\omega_0^2-\omega^2)(\omega_0^2-\omega^2) \iff 0 = 2(\omega_0^2-\omega^2)^2-\omega^4 \iff 0=\Det(\bV-\omega^2\bPi) \ \checkmark.
+\end{align}
+So either equation may be used, together with normalization, to get $\vec a$. Propose
+\begin{equation}
+\vec a = N\begin{pmatrix}1\\ 2\left(\frac{\omega_0^2}{\omega^2}-1\right)\end{pmatrix}, \qquad N: \text{normalization constant}, \qquad x\equiv\frac{\omega_0^2}{\omega^2}.
+\end{equation}
+Normalizing via $1 = \vec a^{\,T}\bPi\vec a$,
+\begin{align}
+1 &= N^2\left(1\ \ 2(x-1)\right)m\ell^2\begin{pmatrix}2&1\\1&1\end{pmatrix}\begin{pmatrix}1\\2(x-1)\end{pmatrix}\notag\\
+&= N^2 m\ell^2\left(1\ \ 2(x-1)\right)\begin{pmatrix}2x\\2x-1\end{pmatrix} = N^2 m\ell^2\left[2x+2(x-1)(2x-1)\right]\notag\\
+&= 2N^2m\ell^2\left[2x^2-3x+x+1\right] = 2N^2m\ell^2\left[2x^2-2x+1\right]\notag\\
+&= 2N^2m\ell^2\left[2(x-1)^2+4x-2+1\right] = 2N^2m\ell^2\left[\underbrace{2(x-1)^2-1}_{0}+2x\right] = 4N^2m\ell^2\frac{\omega_0^2}{\omega^2},
+\end{align}
+using the identity $(x-1)^2 = x^2-2x+1$, so that $2x^2-2x+1 = 2(x-1)^2+2x-1 = \left[2(x-1)^2-1\right]+2x$, and $2(x-1)^2-1$ vanishes once $x=\omega_0^2/\omega^2$ is evaluated at either root of Eq.~\eqref{eq:dp-eigenfreq}, since $\omega^4\left[2(x-1)^2-1\right] = 2(\omega_0^2-\omega^2)^2-\omega^4 = 0$. Hence
+\begin{equation}
+\boxed{N_\pm = \frac{1}{\sqrt{4m}}\frac{\omega_\pm}{\ell\omega_0} = \left(\frac{2\pm\sqrt2}{4m\ell^2}\right)^{1/2},}
+\end{equation}
+and, using $\dfrac{\omega_0^2}{\omega_\pm^2}=\dfrac{1}{2\pm\sqrt2}=\dfrac{2\mp\sqrt2}{4-2}=1\mp\tfrac1{\sqrt2}$, so that $2\left(\dfrac{\omega_0^2}{\omega_\pm^2}-1\right)=\mp\sqrt2$,
+\begin{gather}
+\boxed{\vec a_\pm = \left(\frac{2\pm\sqrt2}{4m\ell^2}\right)^{1/2}\begin{pmatrix}1\\\mp\sqrt2\end{pmatrix}}\\
+\boxed{\omega_\pm = (2\pm\sqrt2)^{1/2}\sqrt{\frac{g}{\ell}}.}
+\end{gather}
+Writing the mode matrix as $\bA = (\vec a_+\ \vec a_-) = (4m\ell^2)^{-1/2}\begin{pmatrix}a&b\\c&d\end{pmatrix}$, comparison with $\vec a_\pm$ above gives
+\begin{align}
+a&\equiv(2+\sqrt2)^{1/2}, & c&=-\sqrt2\,a = -\sqrt2(2+\sqrt2)^{1/2},\\
+b&\equiv(2-\sqrt2)^{1/2}, & d&=+\sqrt2\,b=+\sqrt2(2-\sqrt2)^{1/2},
+\end{align}
+\begin{equation}
+\boxed{\bA = (\vec a_+\ \vec a_-) = (4m\ell^2)^{-1/2}\begin{pmatrix}a&b\\c&d\end{pmatrix}.}
+\label{eq:dp-modematrix}
+\end{equation}
+Figure~\ref{fig:dp-modes} shows the corresponding displacement patterns.
+
+\begin{figure}[htb]
+\centering
+\begin{tikzpicture}[scale=1.1]
+\begin{scope}
+\draw[thick] (-0.5,1.1) -- (0.5,1.1);
+\foreach \x in {-0.45,-0.25,...,0.45}{\draw (\x,1.1) -- ++(-0.09,0.11);}
+\draw[thick] (0,1.1) -- (0.35,0.3);
+\filldraw (0.35,0.3) circle (0.04);
+\draw[->] (0.4,0.3) -- (0.95,0.3);
+\node[above] at (0.65,0.32) {\footnotesize $\eta_1$};
+\draw[thick] (0.35,0.3) -- (-0.35,-0.6);
+\filldraw (-0.35,-0.6) circle (0.04);
+\draw[->] (-0.35,-0.6) -- (-1.05,-0.6);
+\node[below] at (-0.7,-0.63) {\footnotesize $\eta_2$};
+\node[anchor=west] at (0.85,0.55) {$\vec a_+$ \footnotesize (high frequency $\omega_+$)};
+\node[anchor=west] at (0.6,-0.35) {\footnotesize $(2-\sqrt2)^{1/2}$};
+\end{scope}
+\begin{scope}[xshift=6.4cm]
+\draw[thick] (-0.5,1.1) -- (0.5,1.1);
+\foreach \x in {-0.45,-0.25,...,0.45}{\draw (\x,1.1) -- ++(-0.09,0.11);}
+\draw[thick] (0,1.1) -- (0.35,0.3);
+\filldraw (0.35,0.3) circle (0.04);
+\draw[->] (0.35,0.3) -- (0.95,0.3);
+\node[above] at (0.65,0.32) {\footnotesize $\eta_1$};
+\draw[thick] (0.35,0.3) -- (-0.35,-0.6);
+\filldraw (-0.35,-0.6) circle (0.04);
+\draw[->] (-0.35,-0.6) -- (0.35,-0.6);
+\node[below] at (0,-0.63) {\footnotesize $\eta_2$};
+\node[anchor=west] at (0.85,0.55) {$\vec a_-$ \footnotesize (lower frequency $\omega_-$)};
+\end{scope}
+\node at (3.2,-1.3) {\footnotesize In both modes, $|\eta_2|=\sqrt2\,|\eta_1|>|\eta_1|$.};
+\end{tikzpicture}
+\caption{Displacement pattern of the two normal modes of the double pendulum: the high-frequency mode $\vec a_+$ and the low-frequency mode $\vec a_-$; in both, the lower mass has the larger angular displacement, $|\eta_2|=\sqrt2\,|\eta_1|$.}
+\label{fig:dp-modes}
+\end{figure}
+
+\subsection{Normal Coordinates and Time Evolution}
+
+The normal coordinates are $\vec\zeta = \bA^{-1}\vec\eta = \bA^T\bPi\vec\eta$, i.e.
+\begin{align}
+\vec\zeta &= \bA^T\bPi\vec\eta = \bA^T\,m\ell^2\begin{pmatrix}2&1\\1&1\end{pmatrix}\begin{pmatrix}\eta_1\\\eta_2\end{pmatrix}
+= (4m\ell^2)^{-1/2}\begin{pmatrix}a&c\\b&d\end{pmatrix}m\ell^2\begin{pmatrix}2\eta_1+\eta_2\\\eta_1+\eta_2\end{pmatrix}\notag\\[2pt]
+&= \left(\frac{m\ell^2}{4}\right)^{1/2}\begin{pmatrix}(2a+c)\eta_1+(a+c)\eta_2\\(2b+d)\eta_1+(b+d)\eta_2\end{pmatrix}.
+\end{align}
+Using $c=-\sqrt2 a$ and $d=\sqrt2 b$,
+\begin{equation}
+2a+c=(2-\sqrt2)a, \qquad a+c=(1-\sqrt2)a, \qquad 2b+d=(2+\sqrt2)b, \qquad b+d=(1+\sqrt2)b,
+\end{equation}
+and since $2-\sqrt2=\sqrt2(\sqrt2-1)$ and $1-\sqrt2=-(\sqrt2-1)$, the first row factors as $(\sqrt2-1)a\left[\sqrt2\eta_1-\eta_2\right]$; likewise $2+\sqrt2=\sqrt2(\sqrt2+1)$ and $1+\sqrt2=(\sqrt2+1)$, so the second row factors as $(\sqrt2+1)b\left[\sqrt2\eta_1+\eta_2\right]$. With $(m\ell^2/4)^{1/2}=m^{1/2}\ell/2$, $a=(2+\sqrt2)^{1/2}$, and $b=(2-\sqrt2)^{1/2}$, this gives
+\begin{gather}
+\boxed{\zeta_+(t) = m^{1/2}\ell\left(\frac{\sqrt2-1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,\eta_1(t)-\eta_2(t)\right]}\\
+\boxed{\zeta_-(t) = m^{1/2}\ell\left(\frac{\sqrt2+1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,\eta_1(t)+\eta_2(t)\right]}
+\label{eq:dp-zeta}
+\end{gather}
+\begin{align}
+\dot\zeta_+(t) &= m^{1/2}\ell\left(\frac{\sqrt2-1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,\dot\eta_1(t)-\dot\eta_2(t)\right],\\
+\dot\zeta_-(t) &= m^{1/2}\ell\left(\frac{\sqrt2+1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,\dot\eta_1(t)+\dot\eta_2(t)\right].
+\end{align}
+But we also know that, being normal coordinates,
+\begin{equation}
+\zeta_+(t) = f_+\cos(\omega_+t+\delta_+), \qquad \zeta_-(t) = f_-\cos(\omega_-t+\delta_-),
+\end{equation}
+\begin{equation}
+\dot\zeta_+(t) = -f_+\omega_+\sin(\omega_+t+\delta_+), \qquad \dot\zeta_-(t) = -f_-\omega_-\sin(\omega_-t+\delta_-).
+\end{equation}
+The Lagrangian in terms of the normal coordinates is, from Eq.~\eqref{eq:dp-eigenfreq},
+\begin{align}
+L &= \frac12\sum_\alpha\left(\dot\zeta_\alpha^2-\omega_\alpha^2\zeta_\alpha^2\right) = \frac12\left[\left(\dot\zeta_+^2-\omega_+^2\zeta_+^2\right)+\left(\dot\zeta_-^2-\omega_-^2\zeta_-^2\right)\right]\notag\\
+&= \frac12\left[\left(\dot\zeta_+^2-\left[(2+\sqrt2)\frac{g}{\ell}\right]\zeta_+^2\right)+\left(\dot\zeta_-^2-\left[(2-\sqrt2)\frac{g}{\ell}\right]\zeta_-^2\right)\right].
+\end{align}
+
+\subsection{Initial Conditions and Explicit Time Dependence}
+
+Assume the initial condition that at $t=0$: $\varphi_1=\varphi_2=0$ and $\dot\varphi_1=-\dot\varphi_2=v>0$; we seek $\varphi_1(t),\varphi_2(t)$.
+
+From $\zeta_+(0)=0=f_+\cos\delta_+$ and $\zeta_-(0)=0=f_-\cos\delta_-$, we need $\delta_+=\pm\tfrac\pi2,\pm\tfrac32\pi,\dots$ and $\delta_-=\pm\tfrac\pi2,\pm\tfrac32\pi,\dots$. Using Eq.~\eqref{eq:dp-zeta} at $t=0$ (with $\eta_1=\eta_2=0$, $\dot\eta_1=v$, $\dot\eta_2=-v$),
+\begin{equation}
+-f_+\omega_+\sin\delta_+ = \dot\zeta_+(0) = m^{1/2}\ell\left(\frac{\sqrt2-1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,v-(-v)\right] = \sqrt{2+\sqrt2}\,\frac{m^{1/2}\ell v}{2},
+\end{equation}
+\begin{equation}
+-f_-\omega_-\sin\delta_- = \dot\zeta_-(0) = m^{1/2}\ell\left(\frac{\sqrt2+1}{2\sqrt2}\right)^{1/2}\left[\sqrt2\,v+(-v)\right] = \sqrt{2-\sqrt2}\,\frac{m^{1/2}\ell v}{2}.
+\end{equation}
+Choosing $\delta_+=\delta_-=-\pi/2$ (so $-\sin\delta_\pm=1$) and using $\omega_\pm=\sqrt{2\pm\sqrt2}\,\sqrt{g/\ell}$,
+\begin{equation}
+f_\pm\sqrt{2\pm\sqrt2}\sqrt{\frac{g}{\ell}} = \sqrt{2\pm\sqrt2}\,\frac{m^{1/2}\ell v}{2} \ \Longrightarrow\ \boxed{f_\pm = \frac{v}{2}\left[\frac{m\ell^3}{g}\right]^{1/2}.}
+\end{equation}
+With $\delta_\pm=-\pi/2$, $\cos(\omega t-\pi/2)=\cos\omega t\cos\tfrac\pi2+\sin\omega t\sin\tfrac\pi2 = \sin\omega t$, so
+\begin{equation}
+\zeta_\pm(t) = f_\pm\cos\!\left(\omega_\pm t-\frac\pi2\right) = f_\pm\sin(\omega_\pm t) \ \Longrightarrow\
+\boxed{\zeta_\pm(t) = \frac{v}{2}\left[\frac{m\ell^3}{g}\right]^{1/2}\sin\!\left(\left[(2\pm\sqrt2)\frac{g}{\ell}\right]^{1/2}t\right).}
+\label{eq:dp-zetat}
+\end{equation}
+
+In terms of the original coordinates, $\vec\eta(t) = \bA\vec\zeta(t)$, i.e., using Eq.~\eqref{eq:dp-modematrix},
+\begin{equation}
+\vec\eta(t) = \bA\vec\zeta(t) = (4m\ell^2)^{-1/2}\begin{pmatrix}a&b\\c&d\end{pmatrix}\begin{pmatrix}\zeta_+(t)\\\zeta_-(t)\end{pmatrix} = (4m\ell^2)^{-1/2}\begin{pmatrix}a\,\zeta_+(t)+b\,\zeta_-(t)\\c\,\zeta_+(t)+d\,\zeta_-(t)\end{pmatrix}.
+\end{equation}
+Substituting $a=(2+\sqrt2)^{1/2}$, $b=(2-\sqrt2)^{1/2}$, $c=-\sqrt2 a$, $d=\sqrt2 b$, and $(4m\ell^2)^{-1/2}\dfrac{v}{2}\left[m\ell^3/g\right]^{1/2}=\dfrac{v}{4\sqrt{g/\ell}}$, together with Eq.~\eqref{eq:dp-zetat}, gives
+\begin{equation}
+\boxed{
+\begin{aligned}
+\varphi_1(t)=\eta_1(t) &= \frac{v}{4\sqrt{g/\ell}}\Big\{(2+\sqrt2)^{1/2}\sin\!\left(\left[(2+\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\\
+&\hspace{2.3cm}+(2-\sqrt2)^{1/2}\sin\!\left(\left[(2-\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\Big\},\\[6pt]
+\varphi_2(t)=\eta_2(t) &= \frac{\sqrt2\,v}{4\sqrt{g/\ell}}\Big\{-(2+\sqrt2)^{1/2}\sin\!\left(\left[(2+\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\\
+&\hspace{2.3cm}+(2-\sqrt2)^{1/2}\sin\!\left(\left[(2-\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\Big\}.
+\end{aligned}}
+\label{eq:dp-phi}
+\end{equation}
+Differentiating,
+\begin{equation}
+\begin{aligned}
+\dot\varphi_1(t) &= \frac{v}{4}\left\{(2+\sqrt2)\cos\!\left(\left[(2+\sqrt2)\tfrac g\ell\right]^{1/2}t\right)+(2-\sqrt2)\cos\!\left(\left[(2-\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\right\},\\
+\dot\varphi_2(t) &= \frac{\sqrt2\,v}{4}\left\{-(2+\sqrt2)\cos\!\left(\left[(2+\sqrt2)\tfrac g\ell\right]^{1/2}t\right)+(2-\sqrt2)\cos\!\left(\left[(2-\sqrt2)\tfrac g\ell\right]^{1/2}t\right)\right\}.
+\end{aligned}
+\label{eq:dp-phidot}
+\end{equation}
+As a check, at $t=0$ all $\sin(\cdots)$ terms in Eq.~\eqref{eq:dp-phi} vanish, giving $\varphi_1=\varphi_2=0\ \checkmark$; and at $t=0$ all $\cos(\cdots)$ terms in Eq.~\eqref{eq:dp-phidot} equal $1$, giving
+\begin{equation}
+\dot\varphi_1 = \frac{v}{4}\left\{(2+\sqrt2)+(2-\sqrt2)\right\}=v\ \checkmark, \qquad
+\dot\varphi_2 = \frac{\sqrt2\,v}{4}\left\{-(2+\sqrt2)+(2-\sqrt2)\right\}=-v\ \checkmark.
+\end{equation}
+
+\section{Comparison with Quantum Mechanics}
+
+In quantum mechanics, an initial state is expanded in the energy eigenbasis $\{|\varphi_\alpha\rangle\}$,
+\begin{equation}
+|\psi(0)\rangle = \sum_\alpha c_\alpha|\varphi_\alpha\rangle, \qquad c_\alpha = \langle\varphi_\alpha|\psi(0)\rangle,
+\end{equation}
+and each coefficient evolves with its own phase,
+\begin{equation}
+|\psi(0)\rangle \to \{c_\alpha\} \to c_\alpha e^{-iE_\alpha t/\hbar} \to |\psi(t)\rangle = \sum_\alpha c_\alpha e^{-iE_\alpha t/\hbar}|\varphi_\alpha\rangle.
+\end{equation}
+The small-oscillations problem proceeds in exact analogy:
+\begin{equation}
+\vec\eta(0),\dot{\vec\eta}(0) \longrightarrow \vec\zeta(0),\dot{\vec\zeta}(0) \longrightarrow \vec\zeta(t),\dot{\vec\zeta}(t) \longrightarrow \vec\eta(t),\dot{\vec\eta}(t),
+\end{equation}
+\begin{equation}
+\vec\eta(t) = \bA\vec\zeta(t), \qquad \vec\zeta(t) = \bA^T\bPi\vec\eta(t).
+\end{equation}
+
+\end{document}

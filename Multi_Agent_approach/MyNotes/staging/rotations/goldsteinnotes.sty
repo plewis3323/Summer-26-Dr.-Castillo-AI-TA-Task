@@ -1,0 +1,63 @@
+% goldsteinnotes.sty -- shared preamble for the HC 6001 chapter documents.
+%
+% Reference convention: Goldstein, Poole & Safko, "Classical Mechanics,"
+% 3rd ed. (Addison-Wesley), adopted for terminology, equation style and
+% structural vocabulary.
+%
+% SCOPE -- READ BEFORE USING. Goldstein is the reference for terminology,
+% equation style and structural vocabulary ONLY. He is NOT authoritative over
+% symbols. Chapters are internally consistent and mutually inconsistent by
+% design, and each chapter's own symbol wins wherever it differs.
+%
+% Consequently this file deliberately defines NO macro that binds a physical
+% quantity to a particular letter. Each document declares its own symbols in
+% its own preamble, and those declarations govern.
+
+\ProvidesPackage{goldsteinnotes}[2026/07/30 HC6001 typesetting conventions]
+
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage{bm}
+\RequirePackage{graphicx}
+\RequirePackage[margin=1in]{geometry}
+\RequirePackage{enumitem}
+\RequirePackage{microtype}
+\RequirePackage{booktabs}
+\RequirePackage{caption}
+\RequirePackage[normalem]{ulem}     % \sout, for struck-out material
+\RequirePackage[hidelinks]{hyperref}
+
+\captionsetup{font=small,labelfont=bf,width=0.92\textwidth}
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt}
+\allowdisplaybreaks[1]
+
+% --- structural asides ------------------------------------------------------
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem{caveat}{Caveat}
+\newtheorem*{aside}{Aside}
+
+% --- struck-out / retracted material ---------------------------------------
+\newcommand{\retracted}[1]{\sout{#1}}
+\newcommand{\retractednote}{\textsuperscript{\,[retracted]}}
+
+% --- notation-neutral typesetting shorthands -------------------------------
+% These take the symbol as an argument; they never choose one.
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\unit}[1]{\hat{\bm{#1}}}
+\newcommand{\mat}[1]{\mathsf{#1}}
+\renewcommand{\d}{\mathrm{d}}
+\newcommand{\dd}[2]{\frac{\d #1}{\d #2}}
+\newcommand{\ddn}[3]{\frac{\d^{#3} #1}{\d #2^{#3}}}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pdn}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\newcommand{\ddt}[1]{\frac{\d #1}{\d t}}
+\newcommand{\evalat}[2]{\left.#1\right|_{#2}}   % held-fixed variable labels
+
+% Inexact differential, for the thermodynamics detour that motivates the
+% Legendre transformation (dbar Q, dbar W -- not plain dQ, dW).
+\newcommand{\dbar}{\mathchar'26\mkern-12mu \mathrm{d}}
+
+% Boxed results.
+\newcommand{\boxeq}[1]{\boxed{#1}}
+
+\endinput

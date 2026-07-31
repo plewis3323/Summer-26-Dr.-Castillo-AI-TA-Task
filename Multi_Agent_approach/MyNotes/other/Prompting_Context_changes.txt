@@ -19,4 +19,16 @@
 
 6. Setup the markdown file where it can take multiple inputs at a time and as many subagents to run the process chain and to make it good with quality and fast.  
 
-7. Get rid of mathpix pieces in the markdown file 
+7. Get rid of mathpix pieces in the markdown file
+
+
+#Round 2 edits (2026-07-30) — folded into Multi_Agent_Outline.md:
+
+8. No references anywhere in the output like "in the original notes" or "on the board" —
+   don't explicitly say the content came from notes or a board in any description.
+
+9. One output document per input document. If there are 3 input PDFs representing 3 separate
+   topics in the input directory, the outputs must be 3 topics / 3 documents.
+
+10. The notes must mostly contain info from the original notes only. Add extra material only
+    if needed, and if so be very concise.

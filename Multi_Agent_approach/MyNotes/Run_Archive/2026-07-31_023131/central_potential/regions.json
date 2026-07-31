@@ -1,0 +1,45 @@
+[
+ {"name": "colA-top",
+  "role": "Column 1, upper: chapter heading through the boxed universal-method quadratures.",
+  "x0": 5, "y0": 0, "x1": 620, "y1": 752},
+
+ {"name": "colB-top",
+  "role": "Column 2, upper: l = mu r^2 phidot, the d/dt -> d/dphi chain rule, orbit sketch, radial equation of motion.",
+  "x0": 530, "y0": 0, "x1": 1060, "y1": 562},
+
+ {"name": "colC-top",
+  "role": "Column 3, upper: F(r) = -dV/dr rewritten in u, ending at -F(1/u) = (l^2/mu) u^2 [u + u''].",
+  "x0": 880, "y0": 0, "x1": 1590, "y1": 562},
+
+ {"name": "band-mid",
+  "role": "Lower band, first rows: u = 1/r substitution, du/dphi chain rule, and the => RHS identity. These lines run across the column boundaries.",
+  "x0": 460, "y0": 548, "x1": 1255, "y1": 700},
+
+ {"name": "band-low-chain",
+  "role": "Lower band: the LHS chain-rule expansion mu d/dt(dr/dt) = ... , and the LHS=RHS header beneath it.",
+  "x0": 460, "y0": 660, "x1": 1255, "y1": 775, "atomic": true},
+
+ {"name": "band-A",
+  "role": "Lower band, wrapped to the bottom-left of column 1: the CONTINUATION of the preceding LHS chain, reducing it to mu rddot = -(l^2/mu) u^2 d^2u/dphi^2.",
+  "x0": 5, "y0": 735, "x1": 520, "y1": 875, "atomic": true},
+
+ {"name": "band-low-box",
+  "role": "Lower band, conclusion: the boxed generic trajectory equation and its caption, equating the reduced LHS to the RHS.",
+  "x0": 460, "y0": 740, "x1": 1255, "y1": 875, "atomic": true},
+
+ {"name": "colC-bottom",
+  "role": "Column 3, lower: the boxed trajectory (Binet) equation, its initial-condition note, and the du/dphi = 0 apsidal condition.",
+  "x0": 1180, "y0": 548, "x1": 1600, "y1": 875, "atomic": true},
+
+ {"name": "colD",
+  "role": "Column 4: gravitational/Kepler case, shifted harmonic oscillator aside, homogeneous solution, apsidal-point ellipse sketch.",
+  "x0": 1350, "y0": 0, "x1": 1875, "y1": 875},
+
+ {"name": "colD-figure",
+  "role": "Column 4, whole-figure crop: the apsidal-point ellipse with its r0 chord, phi0 angle and both apsides, kept in one piece.",
+  "x0": 1350, "y0": 596, "x1": 1875, "y1": 830, "atomic": true},
+
+ {"name": "colE",
+  "role": "Column 5 (second board): conic solution and eccentricity, then the same result via the universal method.",
+  "x0": 1810, "y0": 0, "x1": 2340, "y1": 875}
+]
